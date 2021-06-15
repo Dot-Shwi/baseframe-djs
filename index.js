@@ -16,12 +16,20 @@ if (!process.env.URL || !process.env.TOKEN)
 	return new Err(`(FATAL) Invalid Environmental Variables! Abort!`.bgRed.bold);
 // Main class
 class EntryPoint extends Main {
+	/**
+	 * Main entry point for the bot
+	 * @param {String} line Line which extends the entrypoint
+	 */
 	constructor(line) {
 		line = line ? `.${line}` : "";
 		super(`index` + line);
 		this.client = new Discord.Client();
 	}
 
+	/**
+	 * Start the bot (login using token from environment variables)
+	 * Also loads events
+	 */
 	StartBot() {
 		// Start the bot
 
@@ -46,6 +54,10 @@ class EntryPoint extends Main {
 		});
 	}
 
+	/**
+	 * Connect to mongoose database using URL from environment variables
+	 * @returns {Err} Error if any or null
+	 */
 	ConnectMongoose() {
 		// Connect to mongoose database
 		if (!process.env.URL)
