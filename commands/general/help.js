@@ -61,7 +61,8 @@ class Command extends Message.Event {
                 .addField("More information", command.help)
                 .setFooter(`Requested by ${message.author.tag}`)
                 .setTimestamp();
-            if (command.extraFields.length > 0) commandHelpEmbed.addFields(command.extraFields);
+            const commandExtras = command.extraFields || [];
+            if (commandExtras.length > 0) commandHelpEmbed.addFields(command.extraFields);
             message.channel.send(commandHelpEmbed);
             return;
         }
