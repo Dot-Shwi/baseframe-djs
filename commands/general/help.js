@@ -36,9 +36,39 @@ class Command extends Message.Event {
 
         if (!this.initiated) return new Err(`Called ${CommandName} command tendril without message initiation!`);
 
+        const args = message.content.toLowerCase().split(/\s/);
+        const commandRaw = args.shift();
+        if (args[0]) {
+            const commandToFind = args[0];
+            const command = this.client.commands.find(cmd => cmd.name.includes(commandToFind) || cmd.aliases && cmd.aliases.includes(commandToFind));
+            if (!command) return message.channel.send(`No such command found!`).then(msg => { msg.delete({ timeout: 5000 }); message.delete({ timeout: 5000 }) });
+            let canContinue = 'yeh';
+            for (let p = 0; p < command.permissions; p++) {
+                if (command.permissions[p] == "DEV") {
+                    if (!message.isDev) canContinue = 'noh';
+                    continue;
+                }
+                if (!message.member.hasPermission(command.permissions[i])) canContinue = "noh";
+            }
+            if (!canContinue) return message.channel.send(`You do not have enough permissions to use that command!`).then(msg => { msg.delete({ timeout: 5000 }); message.delete({ timeout: 5000 }) });
+            const commandHelpEmbed = new Discord.MessageEmbed()
+                .setTitle(command.useName)
+                .setDescription(command.description)
+                .setColor(command.color)
+                .addField("Guild only?", command.guildOnly, true)
+                .addField("Cooldown", command.cooldown, true)
+                .addField("Aliases", command.aliases.length > 0 ? command.aliases.join(", ") : "No aliases", true)
+                .addField("More information", command.help)
+                .setFooter(`Requested by ${message.author.tag}`)
+                .setTimestamp();
+            if (command.extraFields.length > 0) commandHelpEmbed.addFields(command.extraFields);
+            message.channel.send(commandHelpEmbed);
+            return;
+        }
+
         const helpEmbed = new Discord.MessageEmbed()
             .setTitle(`Help is here!`)
-            .setDescription(`Here are all my commands!`)
+            .setDescription(`Here are all my commands! The prefix for the server is \`${message.prefix}\``)
             .setColor(`RANDOM`)
             .setTimestamp()
             .setFooter(`Requested by ${message.author.tag}`);
@@ -65,7 +95,7 @@ class Command extends Message.Event {
         }
 
         // Other info
-        helpEmbed.addField(`Other information`, `**Devs:** <@${this.config.Bot.devs.join(`>, <@`)}> \n[**Support Server**](https://discord.gg/aCyPF83e9C)`)
+        helpEmbed.addField(`Other information`, `**Devs:** <@${this.config.Bot.devs.join(`>, <@`)}> \n[**Invite**](https://discord.com/api/oauth2/authorize?client_id=870329762722238505&permissions=8&redirect_uri=https%3A%2F%2Fwww.discord.com%2Fapp&response_type=code&scope=bot%20messages.read)`)
 
         message.channel.send(helpEmbed);
 

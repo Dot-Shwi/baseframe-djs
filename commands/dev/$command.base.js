@@ -51,6 +51,7 @@ module.exports = {
     permissions: ['SEND_MESSAGES'],
     cooldown: 3,
     color: 'RANDOM',
+    extraFields: [],
     help: CommandName,
     call: async (message, client) => {
         if (!instance.initiated) instance.init(client);

@@ -11,6 +11,7 @@ const fs = require(`fs`);
 const Err = require(`./utils/Err`);
 const Cache = require(`./utils/Cache`);
 const colors = require(`colors`);
+const disbut = require("discord-buttons");
 require(`dotenv`).config();
 if (!process.env.URL || !process.env.TOKEN)
 	return new Err(`(FATAL) Invalid Environmental Variables! Abort!`.bgRed.bold);
@@ -24,6 +25,7 @@ class EntryPoint extends Main {
 		line = line ? `.${line}` : "";
 		super(`index` + line);
 		this.client = new Discord.Client();
+		this.connectedToButton = false;
 	}
 
 	/**
@@ -78,12 +80,31 @@ class EntryPoint extends Main {
 		);
 	}
 
-	Test() {}
+	ConnectButton() {
+		if (!this.connectedToButton) {
+			disbut(this.client);
+			this.connectedToButton = true;
+			this.InLog("Connected to button!");
+			this.disbut = disbut;
+		}
+	}
+
+	SetStatus() {
+		if (this.client?.user) {
+			this.client.user.setActivity({ name: "Bot making by shwi", type: "COMPETING" });
+		}
+	}
+
+	Test() { }
 }
 
 const entryInstance = new EntryPoint();
 
 entryInstance.StartBot();
 entryInstance.ConnectMongoose();
+entryInstance.ConnectButton();
+setTimeout(() => {
+	entryInstance.SetStatus();
+}, 20000)
 
-module.exports = { EntryPoint, entryInstance };
+module.exports = { EntryPoint, entryInstance, disbut: entryInstance.disbut };
