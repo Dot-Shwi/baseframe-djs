@@ -49,7 +49,7 @@ class Event extends Index.EntryPoint {
      * Call the event 
      * @param {Discord.Message} message
      */
-    call(message) {
+    async call(message) {
 
         if (!this.initiated) return new Err(`Called ${EventName} event without initialisation!`);
         if (!message) return new Err(`Called message event without a message!`);
