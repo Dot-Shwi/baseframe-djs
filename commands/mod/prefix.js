@@ -68,9 +68,9 @@ class Command extends Message.Event {
         }
 
         // Updating local cache
-        global.prefixes.delete(message.guild.id).then(
-            global.prefixes.set(message.guild.id, newPref)
-        );
+        global.prefixes.delete(message.guild.id)
+        global.prefixes.set(message.guild.id, newPref)
+        
 
         // Informing
         message.reply(`Updated prefix to \`${newPref}\`!`);
