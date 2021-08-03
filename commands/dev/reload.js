@@ -6,7 +6,7 @@ const mongoose = require(`mongoose`);
 const Message = require(`../../events/message`);
 const { Cache, Err, Main } = require(`../../utils/Utils`);
 
-const CommandName = 'reload';
+const CommandName = 'Reload';
 
 class Command extends Message.Event {
 

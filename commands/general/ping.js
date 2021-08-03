@@ -6,7 +6,7 @@ const mongoose = require(`mongoose`);
 const Message = require(`../../events/message`);
 const { Cache, Err, Main } = require(`../../utils/Utils`);
 
-const CommandName = 'ping';
+const CommandName = 'Ping';
 
 class Command extends Message.Event {
 

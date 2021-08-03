@@ -7,7 +7,7 @@ const Message = require(`../../events/message`);
 const { Cache, Err, Main } = require(`../../utils/Utils`);
 const { help } = require("../dev/$command.base");
 
-const CommandName = 'help';
+const CommandName = 'Help';
 
 class Command extends Message.Event {
 
