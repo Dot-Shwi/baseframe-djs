@@ -5,7 +5,6 @@ const fs = require(`fs`);
 const mongoose = require(`mongoose`);
 const Message = require(`../../events/message`);
 const { Cache, Err, Main } = require(`../../utils/Utils`);
-const { help } = require("../dev/$command.base");
 
 const CommandName = 'Help';
 
