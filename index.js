@@ -24,8 +24,36 @@ class EntryPoint extends Main {
 	constructor(line) {
 		line = line ? `.${line}` : "";
 		super(`index` + line);
-		this.client = new Discord.Client();
+		this.client = new Discord.Client({partials: ["CHANNEL", "MESSAGE", "REACTION"]});
 		this.connectedToButton = false;
+
+    // Emojis
+    this.e = {
+      "x": "<:no:752721988388126730>",
+      "r": "<:yes:752721984227508274>",
+      "tic": "<:blurpleticket:872133307574386729>",
+      "on": "<:online:752721988962746429>",
+      "off": "<:offline:752721987842998342>",
+      "idle": "<:idle:752721987855581246>",
+      "dev": "<:dev:752721984621772890>",
+      "dnd": "<:dnd:752721981245358091>",
+      "bug1": "<:bughunter1:872841410561318952>",
+      "bug2": "<:bughunter2:872841411119169576>",
+      "hype": "<:hypesquad:872841411660247070>",
+      "mod": "<:mod:752721983342379028>",
+      "support": "<:blurplesupport:872133307742167080>",
+      "line": "<:blurpleline:872133307733778462>",
+      "cookie": "<:wumpuscookie:752721995954782319>",
+      "partner": "<:partner:872841412838834256>",
+      "cozy": "<:wumpuscozy:752721993857499276>",
+      "i": "<:info:752721989046894693>",
+      "luv": "<:pikaluv:872841567726108693>",
+      "gift": "<:blurplegift:872133307737997372>",
+      "new": ":dart:",
+      "remove": "📄",
+      "yarn": "🧶"
+    }
+
 	}
 
 	/**
@@ -91,7 +119,7 @@ class EntryPoint extends Main {
 
 	SetStatus() {
 		if (this.client?.user) {
-			this.client.user.setActivity({ name: "Bot making by shwi", type: "COMPETING" });
+			this.client.user.setActivity({ name: "You can do it!", type: "COMPETING" });
 		}
 	}
 
