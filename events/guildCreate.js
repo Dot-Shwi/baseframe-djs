@@ -54,7 +54,7 @@ const Instance = new Event();
 // Exports
 module.exports = {
     name: EventName,
-    call: (client) => {
+    call: (client, guild) => {
 
         // Call event
         if (!Instance.initiated) Instance.init(client);
