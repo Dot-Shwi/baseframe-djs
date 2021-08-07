@@ -2,11 +2,13 @@
   "Bot": {
     "prefix": "??",
     "devs": ["700328450270953503"],
-    "invite": "https://discord.com/api/oauth2/authorize?client_id=870329762722238505&permissions=8&redirect_uri=https%3A%2F%2Fwww.discord.com%2Fapp&response_type=code&scope=bot%20messages.read"
+    "invite": "https://discord.com/api/oauth2/authorize?client_id=788339815434944512&permissions=8&scope=bot"
   },
   "Dev": {
-    "logs_channel": "",
-    "todo_channel": "",
-    "prefix": ""
+    "logs_channel": "873218468105834576",
+    "todo_channel": "873218434706587658",
+    "prefix": "t?",
+    "dev_logs_channel": "873222413612113980",
+    "time": 120
   }
 }

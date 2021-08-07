@@ -43,8 +43,11 @@ class Command extends Message.Event {
 
     if (!type || !toLog)
       return message.reply(
-        `Please use the valid format! \`<prefix>log <type:dev/build/v13> <To Log>\``
+        `Please use the valid format! \`${message.prefix}log <type:dev/build/v13> <To Log>\``
       );
+
+    if (!toLog.includes(":") || !toLog.includes(":-"))
+      return message.reply(`Invalid log format!`);
 
     const title = toLog.split(":-").shift();
     this.InLog({ title, toLog });

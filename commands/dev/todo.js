@@ -76,8 +76,12 @@ class Command extends Message.Event {
       }
 
       this.channelFetch(channel, args, replaceBy, (err) => {
+        this.delete(message);
+
         if (err) return this.InLog(err);
-        message.channel.send(`${this.e.r} Marked ${args[0]} as ${ticketID}!`);
+        message.channel
+          .send(`${this.e.r} Marked ${args[0]} as ${ticketID}!`)
+          .then((msg) => this.delete(msg, 5));
       });
 
       return;

@@ -14,16 +14,6 @@ class Command extends Message.Event {
    */
   constructor() {
     super(CommandName);
-  }
-
-  /**
-   *
-   * @param {Discord.Client} client
-   */
-  init(client) {
-    if (this.initiated) return;
-    this.client = client;
-    this.initiated = true;
 
     this.helpFields = [
       {
@@ -37,6 +27,16 @@ class Command extends Message.Event {
           'Similar to "<>" but instead of required, this encloses **optional** parameters. This means that process/command would work even without this parameter.',
       },
     ];
+  }
+
+  /**
+   *
+   * @param {Discord.Client} client
+   */
+  init(client) {
+    if (this.initiated) return;
+    this.client = client;
+    this.initiated = true;
   }
 
   /**
@@ -60,12 +60,8 @@ class Command extends Message.Event {
       );
       if (!command)
         return message.channel.send(`No such command found!`).then((msg) => {
-          msg.delete({
-            timeout: 5000,
-          });
-          message.delete({
-            timeout: 5000,
-          });
+          msg.delete({ timeout: 5000 });
+          message.delete({ timeout: 5000 });
         });
       let canContinue = "yeh";
       for (let p = 0; p < command.permissions; p++) {
@@ -80,12 +76,8 @@ class Command extends Message.Event {
         return message.channel
           .send(`You do not have enough permissions to use that command!`)
           .then((msg) => {
-            msg.delete({
-              timeout: 5000,
-            });
-            message.delete({
-              timeout: 5000,
-            });
+            msg.delete({ timeout: 5000 });
+            message.delete({ timeout: 5000 });
           });
       const commandHelpEmbed = new Discord.MessageEmbed()
         .setTitle(command.useName)
@@ -117,10 +109,7 @@ class Command extends Message.Event {
       )
       .setColor(`RANDOM`)
       .setTimestamp()
-      .addFields(this.helpFields)
-      .setFooter(
-        `Requested by ${message.author.tag} | Use \`${message.prefix}help <command-name>\` to look at a particular command's help!`
-      );
+      .setFooter(`Requested by ${message.author.tag}`);
 
     const commandCats = fs.readdirSync(`./commands`);
     for (const cat of commandCats) {
@@ -148,10 +137,14 @@ class Command extends Message.Event {
         helpEmbed.addField(catName, allcmds.join(`, \n`), true);
     }
 
+    helpEmbed.addFields(this.helpFields);
+
     // Other info
     helpEmbed.addField(
       `Other information`,
-      `**Devs:** <@${this.config.Bot.devs.join(`>, <@`)}> \n[**Invite**]()`
+      `**Devs:** <@${this.config.Bot.devs.join(`>, <@`)}> \n[**Invite**](${
+        this.config.Bot.invite
+      })`
     );
 
     message.channel.send(helpEmbed);
@@ -163,16 +156,16 @@ const instance = new Command();
 // Exports
 module.exports = {
   name: CommandName.toLowerCase(),
-  description: "Get help regarding the bot!",
+  description: CommandName,
   useName: CommandName,
   ignore: false,
   guildOnly: false,
-  aliases: ["helpme", "what", "wtf"],
+  aliases: [],
   permissions: ["SEND_MESSAGES"],
-  cooldown: 5,
-  color: "RANDOM",
+  cooldown: 3,
+  color: "ORANGE",
   extraFields: instance.helpFields,
-  help: "<prefix>help [command]",
+  help: CommandName,
   call: async (message, client) => {
     if (!instance.initiated) instance.init(client);
     instance.call(message);

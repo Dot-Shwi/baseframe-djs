@@ -27,14 +27,7 @@ class Cache extends Main {
    * Log this cache
    */
   Log(extra = "") {
-    this.InLog(this.message + "\n" + extra, this.object);
-  }
-
-  /**
-   * Get the cache as a json stringified object
-   */
-  get as_json() {
-    return JSON.stringify(this.info);
+    this.InLog(this.message + "\n" + extra);
   }
 
   /**
