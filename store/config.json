@@ -1,8 +1,14 @@
 {
-    "Bot": {
-        "prefix": "??",
-        "devs": [
-            "700328450270953503"
-        ]
-    }
+  "Bot": {
+    "prefix": "??",
+    "devs": ["700328450270953503"],
+    "invite": "https://discord.com/api/oauth2/authorize?client_id=788339815434944512&permissions=8&scope=bot"
+  },
+  "Dev": {
+    "logs_channel": "873218468105834576",
+    "todo_channel": "873218434706587658",
+    "prefix": "t?",
+    "dev_logs_channel": "873222413612113980",
+    "time": 120
+  }
 }
