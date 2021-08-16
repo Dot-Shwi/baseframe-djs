@@ -96,8 +96,3 @@ class Stack extends Main {
 const ErrorStack = new Stack("ErrorStack", Err);
 
 module.exports = { Stack, ErrorStack };
-
-/**  TESTING  */
-ErrorStack.push(new Err("ERROROROR"));
-ErrorStack.push(new Err("Hellooo"));
-ErrorStack.log();
